@@ -1,0 +1,33 @@
+apply plugin: 'groovy'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    testCompile.transitive = true
+}
+
+dependencies {
+    def groovyMajor = 1
+    def groovyMinor = 8
+    def groovyPatch = 7
+    def groovyVersion = "$groovyMajor.$groovyMinor.$groovyPatch"
+    def gebVersion = '0.7.1'
+    def seleniumVersion = '2.25.0'
+    def spockVersion = "0.6-groovy-$groovyMajor.$groovyMinor"
+
+    groovy "org.codehaus.groovy:groovy-all:$groovyVersion"
+
+    testCompile "org.codehaus.geb:geb-spock:$gebVersion"
+    testCompile "org.spockframework:spock-core:$spockVersion"
+
+    testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
+    testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+    testRuntime "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.1'
+}
